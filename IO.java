@@ -23,8 +23,10 @@ public class IO {
             System.out.println("ERROR: something went wrong with your file");
             return  null;
         }finally {
-            reader.close();
-            reader = null;
+            if(reader != null) {
+                reader.close();
+                reader = null;
+            }
 
             return result;
         }
@@ -50,8 +52,10 @@ public class IO {
             System.out.println("ERROR: something went wrong with your file");
             return  null;
         }finally {
-            reader.close();
-            reader = null;
+            if(reader != null) {
+                reader.close();
+                reader = null;
+            }
 
             return result;
         }
