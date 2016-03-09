@@ -1,12 +1,3 @@
-
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
-
 /**
  * Created by h3dg3wytch on 2/25/16.
  */
@@ -14,14 +5,29 @@ public class Test {
 
     public static void main(String[] args) {
 
-        //If the length is zero, then the user did not input an input file
-        if(args.length == 0) {
-            try {
-              IO.readFromFile("25000.txt");
 
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        BinaryHeap heap = new BinaryHeap(10);
+
+        for(int i = 10; i > 0 ; i--){
+            heap.insert(i);
+        }
+
+        heap.display();
+
+        System.out.println("DELETED");
+        heap.deleteMin();
+        heap.display();
+
+
+
+        //If the length is zero, then the user did not input an input file
+//        if(args.length == 0) {
+//            try {
+//              IO.readFromFile("25000.txt");
+//
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
         //There are arguments, if they inlcluded the number one in there work, then it is a microsoft windows path
 //        }else {
 //
@@ -60,4 +66,4 @@ public class Test {
 
 
 
-}
+
