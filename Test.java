@@ -5,19 +5,7 @@ public class Test {
 
     public static void main(String[] args) {
 
-
-        BinaryHeap heap = new BinaryHeap(10);
-
-        for(int i = 10; i > 0 ; i--){
-            heap.insert(i);
-        }
-
-        heap.display();
-
-        System.out.println("DELETED");
-        heap.deleteMin();
-        heap.display();
-
+        
 
 
         //If the length is zero, then the user did not input an input file
