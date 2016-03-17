@@ -4,11 +4,13 @@ import java.util.List;
 /**
  * Created by h3dg3wytch on 2/25/16.
  */
-public class Node {
+public class Node implements Comparable<Node>{
 
     private Integer idOfNode;
     private Edge edge;
     private List<Edge> edgeList;
+    private Integer parent;
+    private Integer key;
 
     public Node(){
         edgeList = new ArrayList<Edge>();
@@ -17,31 +19,8 @@ public class Node {
 
     public Node(int num){
         this.idOfNode = num;
+        edgeList = new ArrayList<Edge>();
         edge = new Edge();
-    }
-
-    @Override
-    public boolean equals(Object object){
-        //If this the object, then we return true
-        if(this == object){
-            return true;
-        }
-        //If we get
-        if(object == null){
-            return false;
-        }
-        if(object.getClass() != object.getClass()){
-            return  false;
-        }
-
-        Node otherNode = (Node) object;
-        if(idOfNode == null){
-           if(otherNode.getIdOfNode() == null){
-               return false;
-           }
-        } else if( !idOfNode.equals(otherNode.getIdOfNode()))
-            return false;
-        return true;
     }
 
     public void display(){
@@ -62,6 +41,7 @@ public class Node {
     }
 
     public void update(){
+
         edgeList.add(this.edge);
         edge = new Edge();
     }
@@ -72,5 +52,35 @@ public class Node {
 
     public Integer getIdOfNode() {
         return idOfNode;
+    }
+
+    public Integer getParent() {
+        return parent;
+    }
+
+    public void setParent(Integer parent) {
+        this.parent = parent;
+    }
+
+    public Integer getKey() {
+        return key;
+    }
+
+    public void setKey(Integer key) {
+        this.key = key;
+    }
+
+    @Override
+    public String toString() {
+        return "ID: " + idOfNode + " Key: " + key + " Parent: " + parent +"\n";
+    }
+
+    @Override
+    public int compareTo(Node o) {
+        if(key < o.getKey())
+            return -1;
+        if(key > o.getKey())
+            return 1;
+        return 0;
     }
 }

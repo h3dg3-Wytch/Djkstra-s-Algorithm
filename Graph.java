@@ -9,7 +9,9 @@ import java.util.List;
  *
  */
 public class Graph {
-
+    //I used a hash table, because I designed the nodes to have all of thier associated edges
+    //We know the ids of nodes, 0 to 24999, so we can get both the node, and all with the
+    //edges with just 0(1)
     private HashMap<Integer, Node> graph;
 
 
@@ -29,7 +31,8 @@ public class Graph {
     public boolean contains(Node n){
         return graph.containsKey(n.getIdOfNode());
     }
-    //Finds if the graph contains the n Node
+
+    //Finds if the graph contains the n Node via the key
     public boolean contains(int id){
         return graph.containsKey(id);
     }
@@ -43,8 +46,6 @@ public class Graph {
 
         }
     }
-
-
 
 
     public static void main(String[] args) throws IOException {
@@ -63,6 +64,5 @@ public class Graph {
 
 
     }
-
 
 }
