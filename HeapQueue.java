@@ -1,21 +1,31 @@
+import java.util.ArrayList;
+import java.util.List;
 @SuppressWarnings("unchecked")
-public class TheHeap<AnyType extends Comparable<AnyType>>
+public class HeapQueue<AnyType extends Comparable<AnyType>>
 {
     private static final int CAPACITY = 2;
 
     private int size;            // Number of elements in heap
     private AnyType[] heap;     // The heap array
 
-    public TheHeap()
+    public HeapQueue()
     {
         size = 0;
         heap = (AnyType[]) new Comparable[CAPACITY];
     }
 
+    public void buildHeap()
+    {
+        for (int k = size/2; k > 0; k--)
+        {
+            percolatingDown(k);
+        }
+    }
+
     /**
      * Construct the binary heap given an array of items.
      */
-    public TheHeap(AnyType[] array)
+    public HeapQueue(AnyType[] array)
     {
         size = array.length;
         heap = (AnyType[]) new Comparable[array.length+1];
@@ -35,10 +45,9 @@ public class TheHeap<AnyType extends Comparable<AnyType>>
             child = 2*k;
 
             if(child != size &&
-                    heap[child].compareTo(heap[child + 1]) >= 0) child++;
+                    heap[child].compareTo(heap[child + 1]) > 0) child++;
 
-            if(tmp.compareTo(heap[child]) >= 0)
-                heap[k] = heap[child];
+            if(tmp.compareTo(heap[child]) > 0)  heap[k] = heap[child];
             else
                 break;
         }
@@ -99,17 +108,4 @@ public class TheHeap<AnyType extends Comparable<AnyType>>
         }
         return false;
     }
-
-    public AnyType peek(){
-        return heap[1];
-    }
-
-    public void update() {
-        percolatingDown(1);
-    }
-
-
-
-
-
 }

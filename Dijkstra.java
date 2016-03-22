@@ -6,7 +6,7 @@ import java.util.*;
 public class Dijkstra {
     //The heap
    // private TheHeap<Node> nodeBinaryHeap;
-    private TheHeap<Node> nodeBinaryHeap;
+    private HeapQueue<Node> nodeBinaryHeap;
     //The list of nodes with thier edges
     private List<Node> graph;
     //The parent nodes
@@ -16,7 +16,7 @@ public class Dijkstra {
 
     public Dijkstra(List<Node> adjacencylist){
         NodeComparator comparator = new NodeComparator();
-        this.nodeBinaryHeap = new TheHeap<Node>();
+        this.nodeBinaryHeap = new HeapQueue<Node>();
         this.graph = adjacencylist;
         this.results = new HashSet<Node>();
         this.totalWeight = 0;
@@ -39,13 +39,12 @@ public class Dijkstra {
 
         //We go through the all edges that are in the node
         for(Edge e : n.getEdgeList()){
-
             Node temp = graph.get(e.getDestinationNode());
             if(temp.getKey() > n.getKey() + e.getWeight()){
+                totalWeight += n.getKey() + e.getWeight();
                 temp.setKey(n.getKey() + e.getWeight());
                 temp.setParent(n.getIdOfNode());
             }
-
         }
     }
 
@@ -80,14 +79,14 @@ public class Dijkstra {
            //The loop will break when there is an error, trying to pull from the an empty priority queue.
             try{
                 while(true) {
-                        //update the queue...
 
-                        nodeBinaryHeap.update();
                         Node n = nodeBinaryHeap.deleteMin();
-                        totalWeight = n.getKey();
+                        //totalWeight += n.getKey();
                         results.add(n);
                         //We go through the all edges that are in the node
                         relax(n);
+                        nodeBinaryHeap.buildHeap();
+
                 }
             }catch (Exception e){
 
