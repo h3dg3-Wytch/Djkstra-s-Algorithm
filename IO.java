@@ -77,18 +77,33 @@ public class IO {
             //It will always make a length 3 array though
         }else if(tokens.length == 3){
 
+            int currentNodeId = currentNode.getIdOfNode();
+            int destinationNodeId = Integer.parseInt(tokens[1]);
+            int edgeWeight = Integer.parseInt(tokens[2]);
+            //We make a new edge
             Edge edge = new Edge();
-            edge.setSourceNode(currentNode.getIdOfNode());
-            edge.setDestinationNode(Integer.parseInt(tokens[1]));
-            edge.setWeight(Integer.parseInt(tokens[2]));
+            //Set the source Node
+            edge.setSourceNode(currentNodeId);
+            //Set the destination node
+            edge.setDestinationNode(destinationNodeId);
+            //Set the weight
+            edge.setWeight(edgeWeight);
+
+            //Put the edge in the current NOde
             currentNode.getEdgeList().add(edge);
-                //Set the source node to be the current iterations id
-//                currentNode.getEdge().setSourceNode(currentNode.getIdOfNode());
-//                //Set the destination node to be the next node
-//                currentNode.getEdge().setDestinationNode(Integer.parseInt(tokens[1]));
-//                //Set the weight to the weight
-//                currentNode.getEdge().setWeight(Integer.parseInt(tokens[2]));
-//                currentNode.update();
+            Edge reverseEdge = new Edge();
+
+            //Now do the same but for the destination node
+            Node temp = nodeList.get(destinationNodeId);
+
+            //Set the source as the destination node
+            reverseEdge.setSourceNode(destinationNodeId);
+            //Set the destination as the current node
+            reverseEdge.setDestinationNode(currentNodeId);
+            reverseEdge.setWeight(edgeWeight);
+
+            temp.getEdgeList().add(reverseEdge);
+
         }else{
             return;
         }

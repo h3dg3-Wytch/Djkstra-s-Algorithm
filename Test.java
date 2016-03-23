@@ -13,12 +13,8 @@ public class Test {
         //If the length is zero, then the user did not input an input file
         if (args.length == 0) {
             try {
-                List<Node> nodes = IO.readFromFile("1000.txt");
-                for(Node n : nodes){
-                    n.display();
-                }
-
-
+                List<Node> nodes = IO.readFromFile("25000.txt");
+                
                 Dijkstra dijkstra = new Dijkstra(nodes);
                 dijkstra.execute();
 

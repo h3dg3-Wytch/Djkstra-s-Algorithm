@@ -46,9 +46,11 @@ public class Dijkstra {
         for(Edge e : n.getEdgeList()){
             int key = e.getDestinationNode();
             Node temp = nodeHashMap.get(key);
-            if(temp.getKey() > n.getKey() + e.getWeight()){
-                temp.setKey(n.getKey() + e.getWeight());
-                temp.setParent(n.getIdOfNode());
+            if(!results.contains(temp)) {
+                if (temp.getKey() > n.getKey() + e.getWeight()) {
+                    temp.setKey(n.getKey() + e.getWeight());
+                    temp.setParent(n.getIdOfNode());
+                }
             }
         }
     }
@@ -92,14 +94,15 @@ public class Dijkstra {
 
                         Node n = nodeBinaryHeap.deleteMin();
                         //totalWeight += n.getKey();
-                        results.add(n);
 
-                        if(n.getKey() == Integer.MAX_VALUE) {
-                            n.setKey(0);
-                        }
+
+//                        if(n.getKey() == Integer.MAX_VALUE) {
+//                            n.setKey(0);
+//                        }
 
                         totalWeight += n.getKey();
                         relax(n);
+                        results.add(n);
 
 
                         //We go through the all edges that are in the node
