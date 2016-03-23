@@ -6,21 +6,24 @@ import java.util.List;
  */
 public class Node implements Comparable<Node>{
 
+    //the id of the node, what we will reference it by
     private Integer idOfNode;
-    private Edge edge;
+    //the collection of edges that are around this node
     private List<Edge> edgeList;
+    //the parent node
     private Integer parent;
+    //the key of the node, used for graph algorithms
     private Integer key;
 
     public Node(){
         edgeList = new ArrayList<Edge>();
-        edge = new Edge();
+
     }
 
     public Node(int num){
         this.idOfNode = num;
         edgeList = new ArrayList<Edge>();
-        edge = new Edge();
+
     }
 
     public void display(){
@@ -34,16 +37,6 @@ public class Node implements Comparable<Node>{
 
     public List<Edge> getEdgeList() {
         return edgeList;
-    }
-
-    public Edge getEdge(){
-        return this.edge;
-    }
-
-    public void update(){
-
-        edgeList.add(this.edge);
-        edge = new Edge();
     }
 
     public void setIdOfNode(int idOfNode) {
