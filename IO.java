@@ -76,13 +76,19 @@ public class IO {
             //I'm sorry but I'm still getting white space for some reason!
             //It will always make a length 3 array though
         }else if(tokens.length == 3){
+
+            Edge edge = new Edge();
+            edge.setSourceNode(currentNode.getIdOfNode());
+            edge.setDestinationNode(Integer.parseInt(tokens[1]));
+            edge.setWeight(Integer.parseInt(tokens[2]));
+            currentNode.getEdgeList().add(edge);
                 //Set the source node to be the current iterations id
-                currentNode.getEdge().setSourceNode(currentNode.getIdOfNode());
-                //Set the destination node to be the next node
-                currentNode.getEdge().setDestinationNode(Integer.parseInt(tokens[1]));
-                //Set the weight to the weight
-                currentNode.getEdge().setWeight(Integer.parseInt(tokens[2]));
-                currentNode.update();
+//                currentNode.getEdge().setSourceNode(currentNode.getIdOfNode());
+//                //Set the destination node to be the next node
+//                currentNode.getEdge().setDestinationNode(Integer.parseInt(tokens[1]));
+//                //Set the weight to the weight
+//                currentNode.getEdge().setWeight(Integer.parseInt(tokens[2]));
+//                currentNode.update();
         }else{
             return;
         }
