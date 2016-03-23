@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by h3dg3wytch on 2/25/16.
  */
-public class Test {
+public class Main {
 
     public static void main(String[] args) {
         //If the length of args is zero, we return, we need valid input
