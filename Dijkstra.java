@@ -107,7 +107,7 @@ public class Dijkstra {
 
                         //We go through the all edges that are in the node
 
-                        nodeBinaryHeap.buildHeap();
+                        nodeBinaryHeap.update();
 
                 }
 

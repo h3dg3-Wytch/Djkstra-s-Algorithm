@@ -1,20 +1,20 @@
 import java.util.ArrayList;
 import java.util.List;
 @SuppressWarnings("unchecked")
-public class HeapQueue<AnyType extends Comparable<AnyType>>
+public class HeapQueue<Element extends Comparable<Element>>
 {
-    private static final int CAPACITY = 2;
+    private static final int DEFAULT_CAPACITY = 50;
 
     private int size;            // Number of elements in heap
-    private AnyType[] heap;     // The heap array
+    private Element[] heap;     // The heap array
 
     public HeapQueue()
     {
         size = 0;
-        heap = (AnyType[]) new Comparable[CAPACITY];
+        heap = (Element[]) new Comparable[DEFAULT_CAPACITY];
     }
 
-    public void buildHeap()
+    public void update()
     {
         for (int k = size/2; k > 0; k--)
         {
@@ -22,22 +22,22 @@ public class HeapQueue<AnyType extends Comparable<AnyType>>
         }
     }
 
-    /**
-     * Construct the binary heap given an array of items.
-     */
-    public HeapQueue(AnyType[] array)
-    {
-        size = array.length;
-        heap = (AnyType[]) new Comparable[array.length+1];
-
-        System.arraycopy(array, 0, heap, 1, array.length);//we do not use 0 index
-
-
+    public boolean contains(Node n){
+        for(int i = 1; i < heap.length; i++){
+            if(heap[i] == null){
+                return false;
+            }
+            if(heap[i].equals(n)){
+                return true;
+            }
+        }
+        return false;
     }
+
 
     private void percolatingDown(int k)
     {
-        AnyType tmp = heap[k];
+        Element tmp = heap[k];
         int child;
 
         for(; 2*k <= size; k = child)
@@ -58,60 +58,53 @@ public class HeapQueue<AnyType extends Comparable<AnyType>>
     /**
      * Deletes the top item
      */
-    public AnyType deleteMin() throws RuntimeException
+    public Element deleteMin() throws RuntimeException
     {
         if (size == 0) throw new RuntimeException();
-        AnyType min = heap[1];
+        Element min = heap[1];
         heap[1] = heap[size--];
         percolatingDown(1);
         return min;
     }
 
-    /**
-     * Inserts a new item
-     */
-    public void insert(AnyType x)
+    //We are going to skip the index zero cell of the array
+    //the left child is located at 2 * k index
+    //the right child is located at 2* k + 1 index
+    //the parent is located at k/2 index
+
+    //A new element is at first added to the end of the array. It then
+    //compares it to its parent, then swaps it if it is less.
+    public void insert(Element x)
     {
-        if(size == heap.length - 1) doubleSize();
+        if(size == heap.length - 1){
+            resize();
+        }
 
         //Insert a new item to the end of the array
         int pos = ++size;
 
-        //Percolate up
+        //While the position is greater then one, and the numer is less them
+        //the parent (index /2) then move the number into the position
         for(; pos > 1 && x.compareTo(heap[pos/2]) < 0; pos = pos/2 )
             heap[pos] = heap[pos/2];
 
         heap[pos] = x;
     }
-    private void doubleSize()
+
+    //doubles the size of the array
+    private void resize()
     {
-        AnyType [] old = heap;
-        heap = (AnyType []) new Comparable[heap.length * 2];
+        Element [] old = heap;
+        heap = (Element []) new Comparable[heap.length * 2];
         System.arraycopy(old, 1, heap, 1, size);
     }
 
-    public String toString()
-    {
-        String out = "";
-        for(int k = 1; k <= size; k++) out += heap[k]+" ";
-        return out;
-    }
 
     public boolean isEmpty(){
         return size == 0;
     }
 
-    public boolean contains(Node n){
-        for(int i = 1; i < heap.length; i++){
-            if(heap[i] == null){
-                return false;
-            }
-            if(heap[i].equals(n)){
-                return true;
-            }
-        }
-        return false;
-    }
+
 
 
 }
