@@ -10,6 +10,7 @@ public class IO {
     private static List<Node> nodeList;
 
     private static Node currentNode;
+    private static int position = 0;
 
     public static List<Node> readFromFile(String filePath) throws IOException{
         //Nake the nodeList to store all the Nodes
@@ -26,7 +27,7 @@ public class IO {
                 formatString(line);
             }
             //Add the very last node generated to the list
-            nodeList.add(currentNode);
+            //nodeList.add(currentNode);
             //If you can't find the file
         }catch (FileNotFoundException e){
             System.out.println("ERROR: file not found. Please enter correct file path, or keep text file in directory");
@@ -52,17 +53,26 @@ public class IO {
     public static void formatString(String s) throws NumberFormatException{
         //Split the string by white space
         String[] tokens = s.split("\\s+");
+        //This means it is the the first line
+        if(tokens[0].contains("n")){
+            //We get the index of the blank char
+            int indexOfBlankSpace = s.indexOf(" ");
+            //we figure out the number
+            String amountOfNodesRaw = s.substring(2, indexOfBlankSpace);
+            //translate it into an int
+            int amountOfNodes = Integer.parseInt(amountOfNodesRaw);
+
+            for(int i = 0; i < amountOfNodes; i++){
+                nodeList.add(new Node(i));
+            }
+
+        }
         //If the length is zero, then go ahead and skip
         if(tokens.length == 0 || s.equals("")){
             return;
         //If one, then it is a new node
         }else if(tokens.length == 1){
-            //If the currentNode is not null, add it to the list.
-            if( currentNode != null){
-                nodeList.add(currentNode);
-            }
-            currentNode = new Node();
-            currentNode.setIdOfNode(Integer.parseInt(tokens[0]));
+            currentNode = nodeList.get(Integer.parseInt(tokens[0]));
             //I'm sorry but I'm still getting white space for some reason!
             //It will always make a length 3 array though
         }else if(tokens.length == 3){

@@ -97,6 +97,10 @@ public class HeapQueue<AnyType extends Comparable<AnyType>>
         return out;
     }
 
+    public boolean isEmpty(){
+        return size == 0;
+    }
+
     public boolean contains(Node n){
         for(int i = 1; i < heap.length; i++){
             if(heap[i] == null){
@@ -108,4 +112,6 @@ public class HeapQueue<AnyType extends Comparable<AnyType>>
         }
         return false;
     }
+
+
 }

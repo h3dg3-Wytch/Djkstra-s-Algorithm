@@ -13,13 +13,18 @@ public class Dijkstra {
     private Set<Node> results;
     //The total weight traveled
     private int totalWeight;
+    private HashMap<Integer, Node> nodeHashMap;
 
     public Dijkstra(List<Node> adjacencylist){
-        NodeComparator comparator = new NodeComparator();
+        //NodeComparator comparator = new NodeComparator();
         this.nodeBinaryHeap = new HeapQueue<Node>();
+        this.nodeHashMap = new HashMap<Integer, Node>();
         this.graph = adjacencylist;
         this.results = new HashSet<Node>();
         this.totalWeight = 0;
+
+
+
     }
 
     //Relaxes all of the edges, with the exception of root
@@ -39,9 +44,9 @@ public class Dijkstra {
 
         //We go through the all edges that are in the node
         for(Edge e : n.getEdgeList()){
-            Node temp = graph.get(e.getDestinationNode());
+            int key = e.getDestinationNode();
+            Node temp = nodeHashMap.get(key);
             if(temp.getKey() > n.getKey() + e.getWeight()){
-                totalWeight += n.getKey() + e.getWeight();
                 temp.setKey(n.getKey() + e.getWeight());
                 temp.setParent(n.getIdOfNode());
             }
@@ -71,26 +76,38 @@ public class Dijkstra {
         //Initialize the single source
         initializeSingleSource(graph);
 
+
+
+
         //insert everything into the heap
         for(Node n : graph){
             nodeBinaryHeap.insert(n);
+            nodeHashMap.put(n.getIdOfNode(), n);
+
         }
 
            //The loop will break when there is an error, trying to pull from the an empty priority queue.
-            try{
-                while(true) {
+
+                while(!nodeBinaryHeap.isEmpty()) {
 
                         Node n = nodeBinaryHeap.deleteMin();
                         //totalWeight += n.getKey();
                         results.add(n);
+
+                        if(n.getKey() != Integer.MAX_VALUE) {
+
+                            totalWeight += n.getKey();
+                            relax(n);
+
+                        }
+
+
                         //We go through the all edges that are in the node
-                        relax(n);
+
                         nodeBinaryHeap.buildHeap();
 
                 }
-            }catch (Exception e){
 
-            }
 
         System.out.println("The total length of the tree: " + totalWeight);
 
