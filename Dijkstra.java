@@ -94,12 +94,12 @@ public class Dijkstra {
                         //totalWeight += n.getKey();
                         results.add(n);
 
-                        if(n.getKey() != Integer.MAX_VALUE) {
-
-                            totalWeight += n.getKey();
-                            relax(n);
-
+                        if(n.getKey() == Integer.MAX_VALUE) {
+                            n.setKey(0);
                         }
+
+                        totalWeight += n.getKey();
+                        relax(n);
 
 
                         //We go through the all edges that are in the node
